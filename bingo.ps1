@@ -1,8 +1,15 @@
-﻿# Get content for Bingo from file
-$array = Get-Content -Encoding UTF8 "C:\Users\User\Desktop\Lines.txt"
+﻿# Define Variables
+$ContentPath = "C:\Users\User\Desktop\Lines.txt" # Path to get lines from
+$ExportPath = "C:\Users\User\Desktop" # Path (Without Filename) to export finished bingo to
+$ExportName = "Bingo.html" # Filename to export finished bingo
+$SheetsToGenerate = 25 # How many sheets should be generated?
+$FreeFieldText = "Frei" # Change this for the "free" middle field, e.g. "Frei" for german, "Free" for english.
+
+# Get content for Bingo from file
+$array = Get-Content -Encoding UTF8 $ContentPath
 
 # How many different Bingo-sheets should be generated
-$repeats = 25
+$repeats = $SheetsToGenerate
 
 # Define HTML-snippets
 $top = '<style>
@@ -66,4 +73,4 @@ for ($i = 0; $i -lt $repeats; $i++){
 $html += $bottom
 
 # Export finished sheets
-New-Item -Path "C:\Users\User\Desktop" -Name Bingo.html -ItemType File -Value $html -Force
+New-Item -Path $ExportPath -Name $ExportName -ItemType File -Value $html -Force
